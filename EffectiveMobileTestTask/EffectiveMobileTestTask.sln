@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36429.23 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EffectiveMobileTestTask", "EffectiveMobileTestTask\EffectiveMobileTestTask.csproj", "{AFFE2324-7BF9-41B5-AFED-80011C861779}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EffectiveMobileTestTask.Tests", "EffectiveMobileTestTask.Tests\EffectiveMobileTestTask.Tests.csproj", "{B169E2D3-49BF-46F1-940C-D687FEB6ED45}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFFE2324-7BF9-41B5-AFED-80011C861779}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFFE2324-7BF9-41B5-AFED-80011C861779}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFFE2324-7BF9-41B5-AFED-80011C861779}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFFE2324-7BF9-41B5-AFED-80011C861779}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B169E2D3-49BF-46F1-940C-D687FEB6ED45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B169E2D3-49BF-46F1-940C-D687FEB6ED45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B169E2D3-49BF-46F1-940C-D687FEB6ED45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B169E2D3-49BF-46F1-940C-D687FEB6ED45}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9E07A80E-ECC3-4407-AB14-04C8D39437E6}
+	EndGlobalSection
+EndGlobal
