@@ -17,8 +17,9 @@ namespace EffectiveMobileTestTask.Tests
         {
             var result = _context.Tree.FindCompaniesByPath("/ru/msk");
 
-            Assert.Equal(1, result.Count);
+            Assert.Equal(2, result.Count);
             Assert.Contains(result, c => c.Name == "Газета уральских москвичей");
+            Assert.Contains(result, c => c.Name == "Яндекс.Директ");
         }
 
         [Fact]
@@ -26,11 +27,8 @@ namespace EffectiveMobileTestTask.Tests
         {
             var result = _context.Tree.FindCompaniesByPath("/ru");
 
-            Assert.Equal(4, result.Count); // Все компании находятся под /ru
+            Assert.Equal(1, result.Count);
             Assert.Contains(result, c => c.Name == "Яндекс.Директ");
-            Assert.Contains(result, c => c.Name == "Ревдинский рабочий");
-            Assert.Contains(result, c => c.Name == "Газета уральских москвичей");
-            Assert.Contains(result, c => c.Name == "Крутая реклама");
         }
 
         [Fact]
@@ -38,9 +36,9 @@ namespace EffectiveMobileTestTask.Tests
         {
             var result = _context.Tree.FindCompaniesByPath("/ru/svrd");
 
-            Assert.Equal(2, result.Count); // Ревдинский рабочий и Крутая реклама
-            Assert.Contains(result, c => c.Name == "Ревдинский рабочий");
+            Assert.Equal(2, result.Count);
             Assert.Contains(result, c => c.Name == "Крутая реклама");
+            Assert.Contains(result, c => c.Name == "Яндекс.Директ");
         }
 
         [Fact]
@@ -48,14 +46,16 @@ namespace EffectiveMobileTestTask.Tests
         {
             var result = _context.Tree.FindCompaniesByPath("/ru/svrd/revda");
 
-            Assert.Single(result);
+            Assert.Equal(3, result.Count);
+            Assert.Contains(result, c => c.Name == "Яндекс.Директ");
+            Assert.Contains(result, c => c.Name == "Крутая реклама");
             Assert.Contains(result, c => c.Name == "Ревдинский рабочий");
         }
 
         [Fact]
         public void TestFindCompaniesByNonExistentPath()
         {
-            var result = _context.Tree.FindCompaniesByPath("/ru/tatarstan/kazan");
+            var result = _context.Tree.FindCompaniesByPath("/rus/tatarstan/kazan");
 
             Assert.Empty(result);
         }

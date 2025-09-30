@@ -41,18 +41,44 @@
         /// <returns></returns>
         public List<Company> FindCompaniesByPath(string path)
         {
-            var parts = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
-            var current = _root;
+            var result = new List<Company>();
+            var regions = GetNestedPaths(path); // получить все родительские пути
 
-            foreach (var part in parts)
+            foreach (var region in regions)
             {
-                if (!current.Children.ContainsKey(part))
-                    return new List<Company>();
-                current = current.Children[part];
+                var parts = region.Split('/', StringSplitOptions.RemoveEmptyEntries);
+                var current = _root;
+
+                foreach (var part in parts)
+                {
+                    if (!current.Children.ContainsKey(part))
+                        break;
+                    current = current.Children[part];
+                }
+
+                // Добавляем **только компании из текущего узла**, а не поддерева
+                result.AddRange(current.Companies);
             }
 
-            // Возвращаем все компании, находящиеся в поддереве
-            return GetAllCompaniesInSubtree(current).Distinct().ToList();
+            return result.Distinct().ToList();
+        }
+
+        private static List<string> GetNestedPaths(string path)
+        {
+            if (string.IsNullOrEmpty(path) || !path.StartsWith("/"))
+                return new List<string>();
+
+            var parts = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
+            var result = new List<string>();
+            var currentPath = "";
+
+            for (int i = 0; i < parts.Length; i++)
+            {
+                currentPath += "/" + parts[i];
+                result.Add(currentPath);
+            }
+
+            return result;
         }
 
         private List<Company> GetAllCompaniesInSubtree(RegionPathNode node)
