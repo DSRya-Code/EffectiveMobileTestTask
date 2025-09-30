@@ -23,6 +23,9 @@
 
 [https://localhost:5001/scalar/v1](https://localhost:5001/scalar/v1)
 
+## HTTP-запросы (REST Client)
+Файл EffectiveMobileTestTask.http содержит примеры HTTP-запросов для тестирования API
+
 ## Эндпоинты
 
 ### GET `/find-companies`
