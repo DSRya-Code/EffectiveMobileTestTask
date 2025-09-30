@@ -68,7 +68,6 @@ namespace EffectiveMobileTestTask.Extensions
         public static void SeedNodeTree(this WebApplication app)
         {
             // Сидирование на  старте
-            #region Seed
             // Загрузка данных при старте (например, тестовые данные)
             var tree = app.Services.GetRequiredService<CompanyRegionTree>();
             var controller = app.Services.GetRequiredService<RegionPathTreeController>();
@@ -82,7 +81,6 @@ namespace EffectiveMobileTestTask.Extensions
 
             // Строим индекс
             controller.BuildIndex();
-            #endregion
         }
         static List<Company> GetTestCompanies()
         {

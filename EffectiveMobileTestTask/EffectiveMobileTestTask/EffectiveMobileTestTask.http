@@ -1,6 +1,56 @@
 @EffectiveMobileTestTask_HostAddress = http://localhost:5188
 
-GET {{EffectiveMobileTestTask_HostAddress}}/weatherforecast/
+### Заменить список компаний
+POST {{EffectiveMobileTestTask_HostAddress}}/replace-companies
+Content-Type: application/json
+
+[
+  {
+    "Name": "Яндекс.Директ",
+    "Paths": ["/ru"]
+  },
+  {
+    "Name": "Ревдинский рабочий",
+    "Paths": ["/ru/svrd/revda", "/ru/svrd/pervik"]
+  },
+  {
+    "Name": "Газета уральских москвичей",
+    "Paths": ["/ru/msk", "/ru/permobl", "/ru/chelobl"]
+  },
+  {
+    "Name": "Крутая реклама",
+    "Paths": ["/ru/svrd"]
+  }
+]
+
+###
+
+### Найти компании по пути /ru
+GET {{EffectiveMobileTestTask_HostAddress}}/find-companies?path=/ru
+Accept: application/json
+
+###
+
+### Найти компании по пути /ru/msk
+GET {{EffectiveMobileTestTask_HostAddress}}/find-companies?path=/ru/msk
+Accept: application/json
+
+###
+
+### Найти компании по пути /ru/svrd
+GET {{EffectiveMobileTestTask_HostAddress}}/find-companies?path=/ru/svrd
+Accept: application/json
+
+###
+
+### Найти компании по пути /ru/svrd/revda
+GET {{EffectiveMobileTestTask_HostAddress}}/find-companies?path=/ru/svrd/revda
+Accept: application/json
+
+###
+
+### Найти компании по несуществующему пути
+GET {{EffectiveMobileTestTask_HostAddress}}/find-companies?path=/ru/tatarstan/kazan
 Accept: application/json
 
 ###

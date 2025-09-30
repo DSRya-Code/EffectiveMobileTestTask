@@ -31,7 +31,7 @@ namespace EffectiveMobileTestTask.BLL
             }
         }
 
-        public async Task ReplaceAllCompaniesAsync(List<Company> companies)
+        public Task ReplaceAllCompaniesAsync(List<Company> companies)
         {
             _tree.Clear();
 
@@ -41,20 +41,24 @@ namespace EffectiveMobileTestTask.BLL
             }
 
             BuildIndex();
+            return Task.CompletedTask;
         }
 
         public ConcurrentDictionary<string, List<Company>> BuildIndex()
         {
-            _cache?.Clear();
-
-            regionCompanyDict = new ConcurrentDictionary<string, List<Company>>();
+            var newDict = new ConcurrentDictionary<string, List<Company>>();
             var root = _tree.GetRootNode();
 
-            BuildIndexRecursive(root, "");
+            BuildIndexRecursive(root, newDict, "");
+
+            // Атомарно заменяем словарь
+            regionCompanyDict = newDict;
+
+            _cache?.Clear();
             return regionCompanyDict;
         }
 
-        private void BuildIndexRecursive(RegionPathNode node, string currentPath)
+        private void BuildIndexRecursive(RegionPathNode node, ConcurrentDictionary<string, List<Company>> targetDict, string currentPath)
         {
             var path = currentPath;
 
@@ -63,20 +67,20 @@ namespace EffectiveMobileTestTask.BLL
                 path = string.IsNullOrEmpty(currentPath) ? $"/{node.Name}" : $"{currentPath}/{node.Name}";
             }
 
-            // Если у узла есть компании, добавляем их в индекс
+            // Если у узла есть компании, добавляем их в промежуточный словарь
             if (node.Companies.Any())
             {
-                if (!regionCompanyDict.ContainsKey(path))
+                if (!targetDict.ContainsKey(path))
                 {
-                    regionCompanyDict[path] = new List<Company>();
+                    targetDict[path] = new List<Company>();
                 }
-                regionCompanyDict[path].AddRange(node.Companies);
+                targetDict[path].AddRange(node.Companies);
             }
 
             // Обходим дочерние узлы
             foreach (var child in node.Children.Values)
             {
-                BuildIndexRecursive(child, path);
+                BuildIndexRecursive(child, targetDict, path);
             }
         }
 
@@ -100,7 +104,7 @@ namespace EffectiveMobileTestTask.BLL
                     {
                         foreach (var company in companies)
                         {
-                                result.Add(company);
+                            result.Add(company);
                         }
                     }
                 });
