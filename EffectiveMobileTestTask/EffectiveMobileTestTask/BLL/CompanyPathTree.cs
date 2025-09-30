@@ -4,6 +4,15 @@
     {
         private RegionPathNode _root = new RegionPathNode("");
 
+        public RegionPathNode GetRootNode()
+        {
+            return _root;
+        }
+
+        /// <summary>
+        /// Добавить компанию в дерево путей
+        /// </summary>
+        /// <param name="company"></param>
         public void AddCompany(Company company)
         {
             foreach (var path in company.Paths)
@@ -25,6 +34,11 @@
             }
         }
 
+        /// <summary>
+        /// Ищем компании по пути
+        /// </summary>
+        /// <param name="path"> путь формата "/ru/msk/..."</param>
+        /// <returns></returns>
         public List<Company> FindCompaniesByPath(string path)
         {
             var parts = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
@@ -51,6 +65,14 @@
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Чистим дерево
+        /// </summary>
+        public void Clear()
+        {
+            _root = new RegionPathNode("");
         }
     }
 }
